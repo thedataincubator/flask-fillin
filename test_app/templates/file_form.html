@@ -1,0 +1,6 @@
+<strong>{{ msg }}</strong>
+<form action="{{ request.path }}" method=post enctype="multipart/form-data">
+    <input type=text name=text>
+    <input type=file name=file>
+    <input type=submit value="Upload File" name="submit">
+</form>

@@ -77,6 +77,14 @@ class fillinTest(unittest.TestCase):
         
         response = response.link("#link1").click(self.client)
         self.assertEquals(200, response.status_code)
+
+    def test_file_form(self):
+        response = self.client.get('file-form')
+        response.form.fields['text'] = 'text'
+        with open("README.rst") as fh:
+            response.form.files['file'] = fh
+            response = response.form.submit(self.client)
+        assert "File Submitted" in response.data
         
 if __name__ == '__main__':
     unittest.main()

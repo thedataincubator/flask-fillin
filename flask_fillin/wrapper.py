@@ -53,6 +53,7 @@ class FormWrapper(Response):
             # add submit function to all links
             def _submit(self, client, path=None, **kargs):
                 data = dict(self.form_values())
+                data.update(self.files)
                 if kargs.has_key('data'):
                     data.update(kargs['data'])
                     del kargs['data']
@@ -63,7 +64,9 @@ class FormWrapper(Response):
                 return client.open(path, data=data, **kargs)
                 
             for form in self._parsed_html.forms:
+                setattr(form, "files", {})  # TODO, validate that input is a file handle upon assigment
                 setattr(form, "submit", types.MethodType(_submit, form))
+
         return self._parsed_html
     
     @property

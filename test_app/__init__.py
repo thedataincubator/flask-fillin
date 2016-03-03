@@ -50,5 +50,16 @@ def checkbox_field_form():
 def link():
     return render_template('link.html')
 
+@app.route("/file-form", methods=["GET", "POST"])
+def file_form():
+    msg = None
+    if request.method == "POST":
+        if request.form.get('text', False) and request.files.get('file', False):
+            msg = "File Submitted"
+        else:
+            msg = "File not submitted"
+
+    return render_template("file_form.html", msg=msg)
+
 if __name__ == "main":
     app.run()
