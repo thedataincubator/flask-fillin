@@ -50,3 +50,8 @@ Example Usage
 
    # underlying parsed html
    links = response.html.findall("a")
+
+   # file upload
+   with open("TestFile") as fh:
+       response.form.files['file'] = fh
+       response.form.submit(client)
