@@ -84,7 +84,27 @@ class fillinTest(unittest.TestCase):
         with open("README.rst") as fh:
             response.form.files['file'] = fh
             response = response.form.submit(self.client)
-        assert "File Submitted" in response.data
-        
+        assert "File submitted" in response.data
+
+    def test_no_file_form(self):
+        response = self.client.get('file-form')
+        response.form.fields['text'] = 'text'
+        response = response.form.submit(self.client)
+        assert "File not submitted" in response.data
+
+    def test_bad_file_form(self):
+        response = self.client.get('file-form')
+        response.form.fields['text'] = 'text'
+        response.form.files['file'] = 'a'
+        with self.assertRaises(ValueError):
+            self.response = response.form.submit(self.client)
+
+    def test_bad_input_form(self):
+        response = self.client.get('file-form')
+        response.form.fields['text'] = 'text'
+        with open("README.rst") as fh, self.assertRaises(ValueError):
+            response.form.files['not_file_name'] = fh
+            response = response.form.submit(self.client)
+
 if __name__ == '__main__':
     unittest.main()

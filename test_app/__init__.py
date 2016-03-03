@@ -55,7 +55,7 @@ def file_form():
     msg = None
     if request.method == "POST":
         if request.form.get('text', False) and request.files.get('file', False):
-            msg = "File Submitted"
+            msg = "File submitted"
         else:
             msg = "File not submitted"
 

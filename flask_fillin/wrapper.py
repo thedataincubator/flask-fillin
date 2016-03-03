@@ -26,7 +26,7 @@ class FormWrapper(Response):
         response.form.fields['username'] = 'my username'
         response.form.fields['password'] = 'secret'
         response.form.fields['remember'] = True
-    
+
         response.form.submit(client)        
         
         Adds also :data:`html` which is parsed lxml HtmlElement and methods
@@ -53,7 +53,17 @@ class FormWrapper(Response):
             # add submit function to all links
             def _submit(self, client, path=None, **kargs):
                 data = dict(self.form_values())
-                data.update(self.files)
+
+                # validate and set values from files
+                for key, value in self.files.iteritems():
+                    if key not in self.inputs:
+                        raise ValueError("No input of with name %s" % repr(key))
+                    if self.inputs[key].type != "file":
+                        raise ValueError("Input %s is not of type 'file'" % repr(key))
+                    if not isinstance(value, file):
+                        raise ValueError("Set file input %s with non-file %s" % (repr(key), repr(value)))
+                    data[key] = value
+
                 if kargs.has_key('data'):
                     data.update(kargs['data'])
                     del kargs['data']
