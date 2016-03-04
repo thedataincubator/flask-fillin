@@ -18,7 +18,7 @@ from setuptools import setup
 
 setup(
     name='Flask-fillin',
-    version='0.2',
+    version='0.3',
     url='http://github.com/jarus/flask-fillin/',
     license='BSD',
     author='Christoph Heer',
