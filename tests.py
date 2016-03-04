@@ -95,8 +95,8 @@ class fillinTest(unittest.TestCase):
     def test_bad_file_form(self):
         response = self.client.get('file-form')
         response.form.fields['text'] = 'text'
-        response.form.files['file'] = 'a'
-        with self.assertRaises(ValueError):
+        response.form.files['file'] = 'not a file type'
+        with self.assertRaises(TypeError):
             self.response = response.form.submit(self.client)
 
     def test_bad_input_form(self):

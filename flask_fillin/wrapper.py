@@ -61,7 +61,7 @@ class FormWrapper(Response):
                     if self.inputs[key].type != "file":
                         raise ValueError("Input %s is not of type 'file'" % repr(key))
                     if not isinstance(value, file):
-                        raise ValueError("Set file input %s with non-file %s" % (repr(key), repr(value)))
+                        raise TypeError("Set file input %s with non-file %s" % (repr(key), repr(value)))
                     data[key] = value
 
                 if kargs.has_key('data'):
