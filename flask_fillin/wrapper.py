@@ -52,7 +52,8 @@ class FormWrapper(Response):
             
             # add submit function to all links
             def _submit(self, client, path=None, **kargs):
-                data = dict(self.form_values())
+                # note that most browsers submit '' instead of None for empty fields
+                data = {k: '' if v is None else v for k, v in self.form_values()}
 
                 # validate and set values from files
                 for key, value in self.files.iteritems():
