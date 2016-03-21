@@ -46,6 +46,18 @@ def checkbox_field_form():
     
     return render_template("checkbox_field_form.html", msg=msg)
 
+@app.route("/empty-field-form", methods=["GET", "POST"])
+def empty_field_form():
+    msg = None
+    if request.method == "POST":
+        print request.form
+        if request.form['text1'] is not None and request.form['text2'] is not None:
+            msg = "No None"
+        else:
+            msg = "Found None"
+
+    return render_template("empty_field_form.html", msg=msg)
+
 @app.route('/link')
 def link():
     return render_template('link.html')
@@ -60,6 +72,7 @@ def file_form():
             msg = "File not submitted"
 
     return render_template("file_form.html", msg=msg)
+
 
 if __name__ == "main":
     app.run()

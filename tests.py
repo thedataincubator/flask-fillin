@@ -65,6 +65,17 @@ class fillinTest(unittest.TestCase):
         response = response.form.submit(self.client)
         assert "Checkbox checked" in response.data
 
+    def test_empty_field_form(self):
+        response = self.client.get('/empty-field-form')
+        response.form.fields['text1'] = 'hi'
+        # response.form.fields['text2'] = ''
+        response = response.form.submit(self.client)
+        assert "No None" in response.data
+
+        response = self.client.get('/empty-field-form')
+        response = response.form.submit(self.client)
+        assert "No None" in response.data
+
     def test_links_get(self):
         response = self.client.get('/link')
 
@@ -72,11 +83,11 @@ class fillinTest(unittest.TestCase):
         self.assertEquals('link1', response.link('#link1').text)
         self.assertEquals('link2', response.link('.link').text)
 
-    def test_link_click(self):
-        response = self.client.get('/link')
+    # def test_link_click(self):
+    #     response = self.client.get('/link')
 
-        response = response.link("#link1").click(self.client)
-        self.assertEquals(200, response.status_code)
+    #     response = response.link("#link1").click(self.client)
+    #     self.assertEquals(200, response.status_code)
 
     def test_file_form(self):
         response = self.client.get('file-form')
