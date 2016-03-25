@@ -74,5 +74,5 @@ def file_form():
     return render_template("file_form.html", msg=msg)
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     app.run()
