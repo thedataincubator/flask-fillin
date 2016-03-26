@@ -36,6 +36,7 @@ class FormWrapper(Response):
     """
         
     _parsed_html = None
+
     
     @property
     def html(self):
@@ -52,13 +53,9 @@ class FormWrapper(Response):
             
             # add submit function to all links
             def _submit(self, client, path=None, **kargs):
-                data = dict(self.form_values())
+                data = {k: '' if self._should_be_blank(k, v) else v
+                              for k,v in self.fields.iteritems()}
 
-                # note that most browsers submit '' instead of None for empty fields
-                blank_fields = ['text', 'password']
-                for k, v in self.fields.iteritems():
-                  if k not in data and self.inputs[k].type in blank_fields:
-                    data[k] = '' 
 
                 # validate and set values from files
                 for key, value in self.files.iteritems():
@@ -79,9 +76,15 @@ class FormWrapper(Response):
                     kargs['method'] = self.method
                 return client.open(path, data=data, **kargs)
                 
+            def _should_be_blank(self, k, v):
+                # note that most browsers submit '' instead of None for empty fields
+                blank_fields = ['text', 'password']
+                return self.inputs[k].type in blank_fields and v is None
+
             for form in self._parsed_html.forms:
                 setattr(form, "files", {})  # TODO, validate that input is a file handle upon assigment
                 setattr(form, "submit", types.MethodType(_submit, form))
+                setattr(form, "_should_be_blank", types.MethodType(_should_be_blank, form))
 
         return self._parsed_html
     
