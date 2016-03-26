@@ -14,9 +14,9 @@ app = Flask(__name__)
 def login_form():
     msg = None
     if request.method == "POST":
-        if not request.form.has_key('username'):
+        if not request.form.get('username'):
             msg = "Missing username"
-        if not request.form.has_key('password'):
+        if not request.form.get('password'):
             msg = "Missing password"
         
         if not msg:
@@ -50,7 +50,6 @@ def checkbox_field_form():
 def empty_field_form():
     msg = None
     if request.method == "POST":
-        print request.form
         if request.form['text1'] is not None and request.form['text2'] is not None:
             msg = "No None"
         else:
