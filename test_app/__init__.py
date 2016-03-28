@@ -14,9 +14,9 @@ app = Flask(__name__)
 def login_form():
     msg = None
     if request.method == "POST":
-        if not request.form.has_key('username'):
+        if not request.form.get('username'):
             msg = "Missing username"
-        if not request.form.has_key('password'):
+        if not request.form.get('password'):
             msg = "Missing password"
         
         if not msg:
@@ -46,6 +46,17 @@ def checkbox_field_form():
     
     return render_template("checkbox_field_form.html", msg=msg)
 
+@app.route("/empty-field-form", methods=["GET", "POST"])
+def empty_field_form():
+    msg = None
+    if request.method == "POST":
+        if request.form['text1'] is not None and request.form['text2'] is not None:
+            msg = "No None"
+        else:
+            msg = "Found None"
+
+    return render_template("empty_field_form.html", msg=msg)
+
 @app.route('/link')
 def link():
     return render_template('link.html')
@@ -61,5 +72,6 @@ def file_form():
 
     return render_template("file_form.html", msg=msg)
 
-if __name__ == "main":
+
+if __name__ == "__main__":
     app.run()
