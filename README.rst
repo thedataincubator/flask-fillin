@@ -2,8 +2,11 @@
 Flask-fillin
 ============
 
-This Flask extension provides simple utilities for **testing your forms** in 
+This Flask extension provides simple utilities for **testing your forms** in
 Flask application.
+
+.. image:: https://travis-ci.org/thedataincubator/flask-fillin.svg
+   :target: https://travis-ci.org/thedataincubator/
 
 Installation
 ============
