@@ -14,11 +14,12 @@ Links
 
 """
 from setuptools import setup
+from flask_fillin import __version__
 
 
 setup(
     name='Flask-fillin',
-    version='0.4',
+    version=__version__,
     url='http://github.com/jarus/flask-fillin/',
     license='BSD',
     author='Christoph Heer',
