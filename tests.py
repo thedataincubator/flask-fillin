@@ -83,11 +83,11 @@ class fillinTest(unittest.TestCase):
         self.assertEquals('link1', response.link('#link1').text)
         self.assertEquals('link2', response.link('.link').text)
 
-    # def test_link_click(self):
-    #     response = self.client.get('/link')
+    def test_link_click(self):
+        response = self.client.get('/link')
 
-    #     response = response.link("#link1").click(self.client)
-    #     self.assertEquals(200, response.status_code)
+        response = response.link("#link1").click(self.client)
+        self.assertEquals(200, response.status_code)
 
     def test_file_form(self):
         response = self.client.get('file-form')

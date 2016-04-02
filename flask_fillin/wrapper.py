@@ -48,7 +48,7 @@ class FormWrapper(Response):
                 path = self.attrib['href']
                 return client.get(path, **kwargs)
 
-            for link in self._parsed_html.iter('a'):
+            for link in self._parsed_html.cssselect('a'):
                 setattr(link, 'click', types.MethodType(_click, link))
 
             # add submit function to all links
