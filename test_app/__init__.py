@@ -46,6 +46,17 @@ def checkbox_field_form():
     
     return render_template("checkbox_field_form.html", msg=msg)
 
+@app.route("/all-fields-form", methods=["GET", "POST"])
+def all_fields_form():
+    msg = None
+    if request.method == "POST":
+        if request.form.get('checkbox_field', False):
+            msg = "Checkbox checked"
+        else:
+            msg = "Checkbox did not check"
+
+    return render_template("all_fields_form.html", msg=msg)
+
 @app.route("/empty-field-form", methods=["GET", "POST"])
 def empty_field_form():
     msg = None
