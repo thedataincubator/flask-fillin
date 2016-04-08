@@ -79,7 +79,12 @@ class FormWrapper(Response):
             def _should_be_blank(self, k, v):
                 # note that most browsers submit '' instead of None for empty fields
                 blank_fields = ['text', 'password']
-                return self.inputs[k].type in blank_fields and v is None
+
+                field = self.inputs[k]
+                if hasattr(field, 'type'):
+                  return field.type in blank_fields and v is None
+                else:
+                  return False
 
             for form in self._parsed_html.forms:
                 setattr(form, "files", {})  # TODO, validate that input is a file handle upon assigment

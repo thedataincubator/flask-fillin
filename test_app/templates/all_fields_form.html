@@ -1,0 +1,24 @@
+<strong>{{ msg }}</strong>
+{% set html5_input_types = ["color",
+"date",
+"datetime",
+"datetime-local",
+"email",
+"month",
+"number",
+"range",
+"search",
+"tel",
+"time",
+"url",
+"week"] %}
+
+<form action="{{ request.path }}" method=post>
+    <input type=checkbox name='checkbox_field'>
+    <input type=radio name='radio_1' value=0>
+    <input type=radio name='radio_1' value=1>
+    {% for in_type in html5_input_types %}
+    <input type={{in_type}} name={{in_type}}>
+    {% endfor %}
+    <input type=submit value=Login>
+</form>
