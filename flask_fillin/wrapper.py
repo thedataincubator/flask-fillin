@@ -84,7 +84,6 @@ class FormWrapper(Response):
                 if hasattr(field, 'type'):
                   return field.type in blank_fields and v is None
                 else:
-                  print field
                   return False
 
             for form in self._parsed_html.forms:
