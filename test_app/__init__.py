@@ -18,10 +18,10 @@ def login_form():
             msg = "Missing username"
         if not request.form.get('password'):
             msg = "Missing password"
-        
+
         if not msg:
             msg = "Welcome " + request.form.get('username')
-    
+
     return render_template("login_form.html", msg=msg)
 
 @app.route("/hidden-field-form", methods=["GET", "POST"])
@@ -32,7 +32,7 @@ def hidden_field_form():
             msg = "Missing the hidden field"
         else:
             msg = "Hidden field received"
-    
+
     return render_template("hidden_field_form.html", msg=msg)
 
 @app.route("/checkbox-field-form", methods=["GET", "POST"])
@@ -43,7 +43,7 @@ def checkbox_field_form():
             msg = "Checkbox checked"
         else:
             msg = "Checkbox did not check"
-    
+
     return render_template("checkbox_field_form.html", msg=msg)
 
 @app.route("/all-fields-form", methods=["GET", "POST"])
