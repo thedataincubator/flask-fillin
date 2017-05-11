@@ -65,6 +65,16 @@ class fillinTest(unittest.TestCase):
         response = response.form.submit(self.client)
         assert "Checkbox checked" in response.data
 
+    def test_select_form(self):
+        response = self.client.get('/select-field-form')
+
+        response = response.form.submit(self.client)
+        assert "select1" in response.data
+
+        response.form.fields['select_field'] = "select2"
+        response = response.form.submit(self.client)
+        assert "select2" in response.data
+
     def test_empty_field_form(self):
         response = self.client.get('/empty-field-form')
         response.form.fields['text1'] = 'hi'
