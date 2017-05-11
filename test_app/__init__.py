@@ -46,6 +46,18 @@ def checkbox_field_form():
 
     return render_template("checkbox_field_form.html", msg=msg)
 
+@app.route("/radio-field-form", methods=["GET", "POST"])
+def radio_field_form():
+    msg = None
+    if request.method == "POST":
+        radio_value = request.form.get('radio_field', False)
+        if radio_value:
+            msg = "Selected {}".format(radio_value)
+        else:
+            msg = "No Radio Value Selected"
+
+    return render_template("radio_field_form.html", msg=msg)
+
 @app.route("/select-field-form", methods=["GET", "POST"])
 def select_field_form():
     msg = None

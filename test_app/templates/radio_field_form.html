@@ -1,6 +1,7 @@
 <strong>{{ msg }}</strong>
 <form action="{{ request.path }}" method=post>
-    <input type=checkbox name='checkbox_field'>
+    <input type=radio name='radio_field' value=0>
+    <input type=radio name='radio_field' value=1>
 
     <input type=submit value=submit>
 </form>

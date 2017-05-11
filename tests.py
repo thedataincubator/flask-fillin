@@ -75,6 +75,20 @@ class fillinTest(unittest.TestCase):
         response = response.form.submit(self.client)
         assert "select2" in response.data
 
+    def test_radio_form(self):
+        response = self.client.get('/radio-field-form')
+
+        response = response.form.submit(self.client)
+        assert "No Radio Value Selected" in response.data
+
+        response.form.fields['radio_field'] = "1"
+        response = response.form.submit(self.client)
+        assert "Selected 1" in response.data
+
+        response.form.fields['radio_field'] = "0"
+        response = response.form.submit(self.client)
+        assert "Selected 0" in response.data
+
     def test_empty_field_form(self):
         response = self.client.get('/empty-field-form')
         response.form.fields['text1'] = 'hi'
