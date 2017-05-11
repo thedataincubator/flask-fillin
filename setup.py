@@ -32,7 +32,8 @@ setup(
     platforms='any',
     install_requires=[
         'Flask',
-        'lxml'
+        'lxml',
+        'cssselect',
     ],
     classifiers=[
         'Environment :: Web Environment',
