@@ -52,10 +52,9 @@ class FormWrapper(Response):
                 setattr(link, 'click', types.MethodType(_click, link))
 
             # add submit function to all links
-            def _submit(self, client, path=None, **kargs):
-                data = {k: '' if self._should_be_blank(k, v) else v
-                              for k,v in self.fields.iteritems()}
-
+            def _submit(self, client, path=None, submit_name=None, **kargs):
+                data = { k: '' if self._should_be_blank(k, v) else v
+                               for k, v in self.fields.iteritems() }
 
                 # validate and set values from files
                 for key, value in self.files.iteritems():
